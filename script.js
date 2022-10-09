@@ -1,7 +1,7 @@
 const draggable_list = document.getElementById('draggable-list');
 const check = document.getElementById('Generate Script');
 
-const richestPeople = [
+const triggers = [
   'Default Interface',
   'Shut',
   'No Shut',
@@ -14,6 +14,7 @@ const richestPeople = [
   'Check memleak'
 ];
 
+
 // Store listitems
 const listItems = [];
 
@@ -23,11 +24,11 @@ createList();
 
 // Insert list items into DOM
 function createList() {
-  [...richestPeople]
+  [...triggers]
     .map(a => ({ value: a, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(a => a.value)
-    .forEach((person, index) => {
+    .forEach((trigger, index) => {
       const listItem = document.createElement('li');
 
       listItem.setAttribute('data-index', index);
@@ -35,7 +36,8 @@ function createList() {
       listItem.innerHTML = `
         <span class="number">${index + 1}</span>
         <div class="draggable" draggable="true">
-          <p class="person-name">${person}</p>
+          <label>${index + 1}</label>
+          <p class="trigger-name"><label>${trigger}</label></p>
           <i class="fas fa-grip-lines"></i>
         </div>
       `;
@@ -88,9 +90,9 @@ function swapItems(fromIndex, toIndex) {
 // Check the order of list items
 function checkOrder() {
   listItems.forEach((listItem, index) => {
-    const personName = listItem.querySelector('.draggable').innerText.trim();
+    const triggerName = listItem.querySelector('.draggable').innerText.trim();
 
-    if (personName !== richestPeople[index]) {
+    if (triggerName !== triggers[index]) {
       listItem.classList.add('wrong');
     } else {
       listItem.classList.remove('wrong');
